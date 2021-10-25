@@ -28,4 +28,4 @@
 
 以DriverStation的telemetry为例，可以看到OpMode接收到了请求 
 
-![以DriverStation的telemetry为例，可以看到OpMode接收到了请求](samples/intro5.png)
+![以DriverStation的telemetry为例，可以看到OpMode接收到了请求](samples/intro5.jpg)
