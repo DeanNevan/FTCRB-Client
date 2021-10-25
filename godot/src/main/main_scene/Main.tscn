@@ -1,0 +1,475 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://assets/theme/default_theme.theme" type="Theme" id=1]
+[ext_resource path="res://src/main/main_scene/Main.gd" type="Script" id=2]
+[ext_resource path="res://assets/art/icons/universal/gear.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/icons/universal/export.png" type="Texture" id=4]
+[ext_resource path="res://src/main/main_scene/windows/WindowSettings.gd" type="Script" id=5]
+[ext_resource path="res://src/main/main_scene/windows/WindowSetDST.gd" type="Script" id=6]
+[ext_resource path="res://src/main/main_scene/debug_labels/DebugLabelFPS.gd" type="Script" id=7]
+[ext_resource path="res://src/main/main_scene/debug_labels/DebugLabelPing.gd" type="Script" id=8]
+[ext_resource path="res://src/main/main_scene/debug_labels/DebugLabelHeartbeat.gd" type="Script" id=9]
+[ext_resource path="res://assets/art/icons/universal/share1.png" type="Texture" id=10]
+[ext_resource path="res://src/main/main_scene/windows/WindowRobotEvent.gd" type="Script" id=11]
+[ext_resource path="res://src/main/main_scene/windows/WindowRobotRequest.gd" type="Script" id=12]
+[ext_resource path="res://src/main/main_scene/EachOpModeTab/EachOpModeTab.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src/main/main_scene/EachOpModeLog/EachOpModeLog.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/theme/default_theme_big.theme" type="Theme" id=15]
+[ext_resource path="res://assets/art/icons/universal/exclamation.png" type="Texture" id=16]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ControlFloat" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.793701
+margin_bottom = -0.793701
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebugLabelsContainer" type="VBoxContainer" parent="ControlFloat"]
+modulate = Color( 1, 1, 1, 0.470588 )
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebugLabelFPS" type="Label" parent="ControlFloat/DebugLabelsContainer"]
+margin_right = 100.0
+margin_bottom = 25.0
+script = ExtResource( 7 )
+
+[node name="DebugLabelPing" type="Label" parent="ControlFloat/DebugLabelsContainer"]
+margin_top = 41.0
+margin_right = 100.0
+margin_bottom = 66.0
+script = ExtResource( 8 )
+
+[node name="DebugLabelHeartbeat" type="Label" parent="ControlFloat/DebugLabelsContainer"]
+margin_top = 82.0
+margin_right = 100.0
+margin_bottom = 107.0
+script = ExtResource( 9 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ControlFloat"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -256.0
+margin_top = -348.0
+
+[node name="Windows" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WindowSettings" type="WindowDialog" parent="Windows"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -234.76
+margin_top = -390.5
+margin_right = 232.24
+margin_bottom = 390.5
+popup_exclusive = true
+window_title = "设置"
+resizable = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Windows/WindowSettings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Windows/WindowSettings/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 443.0
+margin_bottom = 757.0
+
+[node name="ButtonConnect" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+margin_right = 419.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+text = "连接"
+icon = ExtResource( 4 )
+
+[node name="ButtonWindowRobotEvent" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+margin_top = 76.0
+margin_right = 419.0
+margin_bottom = 136.0
+rect_min_size = Vector2( 0, 60 )
+text = "窗口：机器人事件"
+icon = ExtResource( 16 )
+
+[node name="ButtonWindowRobotRequest" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+margin_top = 152.0
+margin_right = 419.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 0, 60 )
+text = "窗口：发送请求"
+icon = ExtResource( 10 )
+
+[node name="ButtonLogsAutoBottom" type="CheckBox" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+margin_top = 228.0
+margin_right = 419.0
+margin_bottom = 288.0
+rect_min_size = Vector2( 0, 60 )
+text = "日志自动滚动底部"
+align = 1
+
+[node name="WindowConnect" type="WindowDialog" parent="Windows"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -233.5
+margin_top = -114.5
+margin_right = 233.5
+margin_bottom = 114.5
+popup_exclusive = true
+window_title = "连接"
+resizable = true
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Windows/WindowConnect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Windows/WindowConnect/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 443.0
+margin_bottom = 205.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Windows/WindowConnect/MarginContainer/VBoxContainer"]
+margin_right = 419.0
+margin_bottom = 41.0
+
+[node name="Label" type="Label" parent="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_top = 8.0
+margin_right = 47.0
+margin_bottom = 33.0
+text = "IP："
+
+[node name="EditIP" type="LineEdit" parent="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 63.0
+margin_right = 419.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+text = "192.168.49.1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Windows/WindowConnect/MarginContainer/VBoxContainer"]
+margin_top = 57.0
+margin_right = 419.0
+margin_bottom = 98.0
+
+[node name="Label" type="Label" parent="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_top = 8.0
+margin_right = 72.0
+margin_bottom = 33.0
+text = "端口："
+
+[node name="EditPort" type="SpinBox" parent="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 88.0
+margin_right = 419.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+max_value = 100000.0
+value = 8888.0
+
+[node name="HSeparator" type="HSeparator" parent="Windows/WindowConnect/MarginContainer/VBoxContainer"]
+margin_top = 114.0
+margin_right = 419.0
+margin_bottom = 118.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Windows/WindowConnect/MarginContainer/VBoxContainer"]
+margin_top = 141.0
+margin_right = 419.0
+margin_bottom = 181.0
+size_flags_vertical = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 201.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="ButtonConfirm" type="Button" parent="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer3/CenterContainer"]
+margin_left = 30.0
+margin_right = 170.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "确认并连接"
+
+[node name="CenterContainer2" type="CenterContainer" parent="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 217.0
+margin_right = 419.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="ButtonCancel" type="Button" parent="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer3/CenterContainer2"]
+margin_left = 51.0
+margin_right = 151.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "取消"
+
+[node name="WindowRobotEvent" type="WindowDialog" parent="Windows"]
+visible = true
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -368.0
+margin_top = -500.0
+popup_exclusive = true
+window_title = "机器人事件"
+resizable = true
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Windows/WindowRobotEvent"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Windows/WindowRobotEvent/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 344.0
+margin_bottom = 476.0
+bbcode_enabled = true
+
+[node name="WindowRobotRequest" type="WindowDialog" parent="Windows"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -268.5
+margin_top = -204.0
+margin_right = 268.5
+margin_bottom = 204.0
+popup_exclusive = true
+window_title = "发送请求"
+resizable = true
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Windows/WindowRobotRequest"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Windows/WindowRobotRequest/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 513.0
+margin_bottom = 384.0
+
+[node name="TextEdit" type="TextEdit" parent="Windows/WindowRobotRequest/MarginContainer/VBoxContainer"]
+margin_right = 489.0
+margin_bottom = 284.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "your request content here...
+it will be encoded with protobuf&string..."
+
+[node name="HSeparator" type="HSeparator" parent="Windows/WindowRobotRequest/MarginContainer/VBoxContainer"]
+margin_top = 300.0
+margin_right = 489.0
+margin_bottom = 304.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Windows/WindowRobotRequest/MarginContainer/VBoxContainer"]
+margin_top = 320.0
+margin_right = 489.0
+margin_bottom = 360.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Windows/WindowRobotRequest/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 236.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="ButtonConfirm" type="Button" parent="Windows/WindowRobotRequest/MarginContainer/VBoxContainer/HBoxContainer/CenterContainer"]
+margin_left = 48.0
+margin_right = 188.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "确认并发送"
+
+[node name="CenterContainer2" type="CenterContainer" parent="Windows/WindowRobotRequest/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 252.0
+margin_right = 489.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="ButtonCancel" type="Button" parent="Windows/WindowRobotRequest/MarginContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+margin_left = 68.0
+margin_right = 168.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "取消"
+
+[node name="ControlMain" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlMain"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlMain/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 1576.0
+margin_bottom = 876.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer"]
+margin_right = 1166.0
+margin_bottom = 852.0
+size_flags_horizontal = 3
+
+[node name="HeadLabelOpModeName" type="Label" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_right = 1166.0
+margin_bottom = 54.0
+theme = ExtResource( 15 )
+text = "Name"
+
+[node name="HSeparator" type="HSeparator" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 70.0
+margin_right = 1166.0
+margin_bottom = 74.0
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 90.0
+margin_right = 1166.0
+margin_bottom = 852.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollOpModeLogsContainer" type="ScrollContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 1142.0
+margin_bottom = 738.0
+
+[node name="OpModeLogsContainer" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/ScrollOpModeLogsContainer"]
+margin_right = 1118.0
+margin_bottom = 714.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EachOpModeLog" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/ScrollOpModeLogsContainer/OpModeLogsContainer" instance=ExtResource( 14 )]
+margin_right = 1118.0
+margin_bottom = 100.0
+
+[node name="VSeparator" type="VSeparator" parent="ControlMain/MarginContainer/HBoxContainer"]
+margin_left = 1182.0
+margin_right = 1186.0
+margin_bottom = 852.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer"]
+margin_left = 1202.0
+margin_right = 1552.0
+margin_bottom = 852.0
+
+[node name="ButtonSettings" type="Button" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_right = 350.0
+margin_bottom = 54.0
+text = "设置"
+icon = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 70.0
+margin_right = 350.0
+margin_bottom = 74.0
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 90.0
+margin_right = 350.0
+margin_bottom = 852.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 345.0
+margin_bottom = 757.0
+rect_min_size = Vector2( 340, 60 )
+
+[node name="OpModeTabsContainer" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+margin_right = 340.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 340, 60 )
+
+[node name="EachOpModeTab" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer/OpModeTabsContainer" instance=ExtResource( 13 )]
+margin_right = 340.0
+
+[connection signal="setting_connect" from="Windows/WindowSettings" to="." method="_on_WindowSettings_setting_connect"]
+[connection signal="setting_window_robot_event" from="Windows/WindowSettings" to="." method="_on_WindowSettings_setting_window_robot_event"]
+[connection signal="setting_window_robot_request" from="Windows/WindowSettings" to="." method="_on_WindowSettings_setting_window_robot_request"]
+[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonConnect" to="Windows/WindowSettings" method="_on_ButtonConnect_pressed"]
+[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonWindowRobotEvent" to="Windows/WindowSettings" method="_on_ButtonWindowRobotEvent_pressed"]
+[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonWindowRobotRequest" to="Windows/WindowSettings" method="_on_ButtonWindowRobotRequest_pressed"]
+[connection signal="toggled" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonLogsAutoBottom" to="." method="_on_ButtonLogsAutoBottom_toggled"]
+[connection signal="confirm_connect" from="Windows/WindowConnect" to="." method="_on_WindowConnect_confirm_connect"]
+[connection signal="pressed" from="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer3/CenterContainer/ButtonConfirm" to="Windows/WindowConnect" method="_on_ButtonConfirm_pressed"]
+[connection signal="pressed" from="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer3/CenterContainer2/ButtonCancel" to="Windows/WindowConnect" method="_on_ButtonCancel_pressed"]
+[connection signal="confirm_robot_request" from="Windows/WindowRobotRequest" to="." method="_on_WindowRobotRequest_confirm_robot_request"]
+[connection signal="pressed" from="Windows/WindowRobotRequest/MarginContainer/VBoxContainer/HBoxContainer/CenterContainer/ButtonConfirm" to="Windows/WindowRobotRequest" method="_on_ButtonConfirm_pressed"]
+[connection signal="pressed" from="Windows/WindowRobotRequest/MarginContainer/VBoxContainer/HBoxContainer/CenterContainer2/ButtonCancel" to="Windows/WindowRobotRequest" method="_on_ButtonCancel_pressed"]
+[connection signal="pressed" from="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/ButtonSettings" to="." method="_on_ButtonSettings_pressed"]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/theme/default_theme.theme" type="Theme" id=1]
+[ext_resource path="res://assets/art/icons/universal/trashcanOpen.png" type="Texture" id=2]
+[ext_resource path="res://src/main/main_scene/EachOpModeTab/EachOpModeTab.gd" type="Script" id=3]
+
+[node name="EachOpModeTab" type="HBoxContainer"]
+margin_right = 336.0
+margin_bottom = 60.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonTabOpMode" type="Button" parent="."]
+margin_right = 250.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 250, 60 )
+text = "OpMode name here"
+clip_text = true
+
+[node name="ButtonDelete" type="Button" parent="."]
+margin_left = 266.0
+margin_right = 336.0
+margin_bottom = 60.0
+icon = ExtResource( 2 )
+
+[connection signal="pressed" from="ButtonTabOpMode" to="." method="_on_ButtonTabOpMode_pressed"]
+[connection signal="pressed" from="ButtonDelete" to="." method="_on_ButtonDelete_pressed"]

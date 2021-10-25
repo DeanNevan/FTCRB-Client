@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/main/utils/GUI/GUI.gd" type="Script" id=1]
+
+[node name="WholeGUI" type="Node"]
+script = ExtResource( 1 )
+
+[node name="LayerGUI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="LayerFloat" type="CanvasLayer" parent="."]
+layer = 3

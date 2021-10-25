@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/main/main_scene/EachOpModeLog/EachOpModeLog.gd" type="Script" id=1]
+[ext_resource path="res://assets/theme/default_theme.theme" type="Theme" id=2]
+
+[node name="EachOpModeLog" type="HBoxContainer"]
+margin_right = 1122.0
+margin_bottom = 41.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelID" type="Label" parent="."]
+margin_top = 37.0
+margin_right = 21.0
+margin_bottom = 62.0
+text = "1."
+
+[node name="EditContent" type="TextEdit" parent="."]
+margin_left = 37.0
+margin_right = 950.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+
+[node name="LabelTime" type="Label" parent="."]
+margin_left = 966.0
+margin_top = 37.0
+margin_right = 1122.0
+margin_bottom = 62.0
+text = "15时11分31秒"

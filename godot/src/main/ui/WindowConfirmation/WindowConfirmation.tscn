@@ -1,0 +1,82 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/theme/default_theme.theme" type="Theme" id=1]
+[ext_resource path="res://src/main/ui/WindowConfirmation/WindowConfirmation.gd" type="Script" id=2]
+
+[node name="WindowConfirmation" type="WindowDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -100.0
+margin_right = 200.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 400, 200 )
+theme = ExtResource( 1 )
+window_title = "确认窗口"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 134.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 150.0
+margin_right = 400.0
+margin_bottom = 200.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+margin_right = 400.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+margin_right = 192.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="ButtonConfirm" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer/CenterContainer"]
+margin_left = 46.0
+margin_right = 146.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "确认"
+
+[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 208.0
+margin_right = 400.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="ButtonCancel" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer/CenterContainer2"]
+margin_left = 46.0
+margin_right = 146.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "取消"
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/CenterContainer/ButtonConfirm" to="." method="_on_ButtonConfirm_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/CenterContainer2/ButtonCancel" to="." method="_on_ButtonCancel_pressed"]
