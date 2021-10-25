@@ -10,12 +10,22 @@
 
 若要直接使用，请下载release版本
 
+总体说明
+
 ![总体说明](samples/intro1.png)
 
-![连接功能的弹窗](samples/intro1.png)
+连接功能的弹窗
 
-![机器人事件的弹窗（该功能暂不完善，只能显示机器人重启信息）](samples/intro1.png)
+![连接功能的弹窗](samples/intro2.png)
 
-![发送请求到OpMode](samples/intro1.png)
+机器人事件的弹窗（该功能暂不完善，只能显示机器人重启信息） 
 
-![以DriverStation的telemetry为例，可以看到OpMode接收到了请求](samples/intro1.png)
+![机器人事件的弹窗（该功能暂不完善，只能显示机器人重启信息）](samples/intro3.png)
+
+发送请求到OpMode 
+
+![发送请求到OpMode](samples/intro4.png)
+
+以DriverStation的telemetry为例，可以看到OpMode接收到了请求 
+
+![以DriverStation的telemetry为例，可以看到OpMode接收到了请求](samples/intro5.jpg)
