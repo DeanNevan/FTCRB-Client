@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/theme/default_theme.theme" type="Theme" id=1]
 [ext_resource path="res://src/main/main_scene/Main.gd" type="Script" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://src/main/main_scene/EachOpModeLog/EachOpModeLog.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/theme/default_theme_big.theme" type="Theme" id=15]
 [ext_resource path="res://assets/art/icons/universal/exclamation.png" type="Texture" id=16]
+[ext_resource path="res://assets/art/icons/universal/information.png" type="Texture" id=17]
+[ext_resource path="res://src/main/main_scene/windows/WindowIntro.gd" type="Script" id=18]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -69,6 +71,135 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -256.0
 margin_top = -348.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ControlMain" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlMain"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlMain/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 1576.0
+margin_bottom = 876.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer"]
+margin_right = 1166.0
+margin_bottom = 852.0
+size_flags_horizontal = 3
+
+[node name="HeadLabelOpModeName" type="Label" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_right = 1166.0
+margin_bottom = 54.0
+theme = ExtResource( 15 )
+text = "这里显示OpMode的名字"
+
+[node name="HSeparator" type="HSeparator" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 70.0
+margin_right = 1166.0
+margin_bottom = 74.0
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 90.0
+margin_right = 1166.0
+margin_bottom = 852.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollOpModeLogsContainer" type="ScrollContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 1142.0
+margin_bottom = 738.0
+
+[node name="OpModeLogsContainer" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/ScrollOpModeLogsContainer"]
+margin_right = 1118.0
+margin_bottom = 714.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EachOpModeLog" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/ScrollOpModeLogsContainer/OpModeLogsContainer" instance=ExtResource( 14 )]
+margin_right = 1118.0
+margin_bottom = 100.0
+
+[node name="LabelInfoOpModeLogs" type="Label" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer"]
+margin_left = 24.0
+margin_top = 368.0
+margin_right = 1142.0
+margin_bottom = 393.0
+text = "这里将会显示选中的OpMode的RBServer日志"
+align = 1
+
+[node name="VSeparator" type="VSeparator" parent="ControlMain/MarginContainer/HBoxContainer"]
+margin_left = 1182.0
+margin_right = 1186.0
+margin_bottom = 852.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer"]
+margin_left = 1202.0
+margin_right = 1552.0
+margin_bottom = 852.0
+
+[node name="ButtonSettings" type="Button" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_right = 350.0
+margin_bottom = 54.0
+text = "设置"
+icon = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 70.0
+margin_right = 350.0
+margin_bottom = 74.0
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 90.0
+margin_right = 350.0
+margin_bottom = 852.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 345.0
+margin_bottom = 757.0
+rect_min_size = Vector2( 340, 60 )
+
+[node name="OpModeTabsContainer" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+margin_right = 340.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 340, 60 )
+
+[node name="EachOpModeTab" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer/OpModeTabsContainer" instance=ExtResource( 13 )]
+margin_right = 340.0
+
+[node name="LabelInfoOpModeTabs" type="Label" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 340.0
+margin_right = 345.0
+margin_bottom = 421.0
+text = "每有一个新OpMode发送了
+RBServer日志，这里就会
+出现该OpMode"
 
 [node name="Windows" type="Control" parent="."]
 anchor_right = 1.0
@@ -79,7 +210,6 @@ __meta__ = {
 }
 
 [node name="WindowSettings" type="WindowDialog" parent="Windows"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -117,26 +247,34 @@ rect_min_size = Vector2( 0, 60 )
 text = "连接"
 icon = ExtResource( 4 )
 
-[node name="ButtonWindowRobotEvent" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+[node name="ButtonWindowIntro" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
 margin_top = 76.0
 margin_right = 419.0
 margin_bottom = 136.0
+rect_min_size = Vector2( 0, 60 )
+text = "窗口：说明"
+icon = ExtResource( 17 )
+
+[node name="ButtonWindowRobotEvent" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+margin_top = 152.0
+margin_right = 419.0
+margin_bottom = 212.0
 rect_min_size = Vector2( 0, 60 )
 text = "窗口：机器人事件"
 icon = ExtResource( 16 )
 
 [node name="ButtonWindowRobotRequest" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
-margin_top = 152.0
+margin_top = 228.0
 margin_right = 419.0
-margin_bottom = 212.0
+margin_bottom = 288.0
 rect_min_size = Vector2( 0, 60 )
 text = "窗口：发送请求"
 icon = ExtResource( 10 )
 
 [node name="ButtonLogsAutoBottom" type="CheckBox" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
-margin_top = 228.0
+margin_top = 304.0
 margin_right = 419.0
-margin_bottom = 288.0
+margin_bottom = 364.0
 rect_min_size = Vector2( 0, 60 )
 text = "日志自动滚动底部"
 align = 1
@@ -248,7 +386,6 @@ rect_min_size = Vector2( 100, 40 )
 text = "取消"
 
 [node name="WindowRobotEvent" type="WindowDialog" parent="Windows"]
-visible = true
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -350,119 +487,77 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 100, 40 )
 text = "取消"
 
-[node name="ControlMain" type="Control" parent="."]
+[node name="WindowIntro" type="WindowDialog" parent="Windows"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -600.074
+margin_top = -346.252
+margin_right = 201.926
+margin_bottom = 19.748
+popup_exclusive = true
+window_title = "说明"
+resizable = true
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Windows/WindowIntro"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="MarginContainer" type="MarginContainer" parent="ControlMain"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ControlMain/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Windows/WindowIntro/MarginContainer"]
 margin_left = 24.0
 margin_top = 24.0
-margin_right = 1576.0
-margin_bottom = 876.0
+margin_right = 778.0
+margin_bottom = 342.0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer"]
-margin_right = 1166.0
-margin_bottom = 852.0
-size_flags_horizontal = 3
-
-[node name="HeadLabelOpModeName" type="Label" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2"]
-margin_right = 1166.0
-margin_bottom = 54.0
-theme = ExtResource( 15 )
-text = "Name"
-
-[node name="HSeparator" type="HSeparator" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2"]
-margin_top = 70.0
-margin_right = 1166.0
-margin_bottom = 74.0
-
-[node name="MarginContainer" type="MarginContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2"]
-margin_top = 90.0
-margin_right = 1166.0
-margin_bottom = 852.0
+[node name="RichTextLabel" type="RichTextLabel" parent="Windows/WindowIntro/MarginContainer/VBoxContainer"]
+margin_right = 754.0
+margin_bottom = 262.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "[center][b]说明[/b][/center]
 
-[node name="ScrollOpModeLogsContainer" type="ScrollContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer"]
-margin_left = 24.0
-margin_top = 24.0
-margin_right = 1142.0
-margin_bottom = 738.0
+1、右上角“设置->窗口：说明”还能再次打开本窗口
+2、一般来说，你需要首先让RobotController端放出热点，有两种方式，一是打开RC端的Program&Manage网络，二是直接用手机或ControlHub的热点。（其实还有个方法是RC设备和本机都连到路由器wifi，但不推荐）
+3、然后，你需要让运行这个客户端的设备连接到上述热点。
+4、之后，在这个客户端右上角点击“设置->连接”，输入ip和端口（RBServer那边没改的话就默认8888），ip的话，如果使用Program&Manage网络，就还是192.168.49.1；如果使用设备热点，那需要你想办法找到该wifi网关（即设备ip）
+5、当然，你得先确保RC那端正常启动了app，才能连接上
+6、最后，driverstation端正常使用、运行opMode、opMode中发送RBServerOpModeLog你就能在这里看到了"
+text = "说明
 
-[node name="OpModeLogsContainer" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/ScrollOpModeLogsContainer"]
-margin_right = 1118.0
-margin_bottom = 714.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+1、右上角“设置->窗口：说明”还能再次打开本窗口
+2、一般来说，你需要首先让RobotController端放出热点，有两种方式，一是打开RC端的Program&Manage网络，二是直接用手机或ControlHub的热点。（其实还有个方法是RC设备和本机都连到路由器wifi，但不推荐）
+3、然后，你需要让运行这个客户端的设备连接到上述热点。
+4、之后，在这个客户端右上角点击“设置->连接”，输入ip和端口（RBServer那边没改的话就默认8888），ip的话，如果使用Program&Manage网络，就还是192.168.49.1；如果使用设备热点，那需要你想办法找到该wifi网关（即设备ip）
+5、当然，你得先确保RC那端正常启动了app，才能连接上
+6、最后，driverstation端正常使用、运行opMode、opMode中发送RBServerOpModeLog你就能在这里看到了"
 
-[node name="EachOpModeLog" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/ScrollOpModeLogsContainer/OpModeLogsContainer" instance=ExtResource( 14 )]
-margin_right = 1118.0
-margin_bottom = 100.0
+[node name="CenterContainer" type="CenterContainer" parent="Windows/WindowIntro/MarginContainer/VBoxContainer"]
+margin_top = 278.0
+margin_right = 754.0
+margin_bottom = 318.0
 
-[node name="VSeparator" type="VSeparator" parent="ControlMain/MarginContainer/HBoxContainer"]
-margin_left = 1182.0
-margin_right = 1186.0
-margin_bottom = 852.0
+[node name="ButtonClose" type="Button" parent="Windows/WindowIntro/MarginContainer/VBoxContainer/CenterContainer"]
+margin_left = 327.0
+margin_right = 427.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "关闭"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer"]
-margin_left = 1202.0
-margin_right = 1552.0
-margin_bottom = 852.0
-
-[node name="ButtonSettings" type="Button" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer"]
-margin_right = 350.0
-margin_bottom = 54.0
-text = "设置"
-icon = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HSeparator" type="HSeparator" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 70.0
-margin_right = 350.0
-margin_bottom = 74.0
-
-[node name="MarginContainer" type="MarginContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 90.0
-margin_right = 350.0
-margin_bottom = 852.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/margin_right = 5
-custom_constants/margin_top = 5
-custom_constants/margin_left = 5
-custom_constants/margin_bottom = 5
-
-[node name="ScrollContainer" type="ScrollContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 345.0
-margin_bottom = 757.0
-rect_min_size = Vector2( 340, 60 )
-
-[node name="OpModeTabsContainer" type="VBoxContainer" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer"]
-margin_right = 340.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 340, 60 )
-
-[node name="EachOpModeTab" parent="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer/OpModeTabsContainer" instance=ExtResource( 13 )]
-margin_right = 340.0
-
+[connection signal="pressed" from="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/ButtonSettings" to="." method="_on_ButtonSettings_pressed"]
 [connection signal="setting_connect" from="Windows/WindowSettings" to="." method="_on_WindowSettings_setting_connect"]
+[connection signal="setting_window_intro" from="Windows/WindowSettings" to="." method="_on_WindowSettings_setting_window_intro"]
 [connection signal="setting_window_robot_event" from="Windows/WindowSettings" to="." method="_on_WindowSettings_setting_window_robot_event"]
 [connection signal="setting_window_robot_request" from="Windows/WindowSettings" to="." method="_on_WindowSettings_setting_window_robot_request"]
 [connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonConnect" to="Windows/WindowSettings" method="_on_ButtonConnect_pressed"]
+[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonWindowIntro" to="Windows/WindowSettings" method="_on_ButtonWindowIntro_pressed"]
 [connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonWindowRobotEvent" to="Windows/WindowSettings" method="_on_ButtonWindowRobotEvent_pressed"]
 [connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonWindowRobotRequest" to="Windows/WindowSettings" method="_on_ButtonWindowRobotRequest_pressed"]
 [connection signal="toggled" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonLogsAutoBottom" to="." method="_on_ButtonLogsAutoBottom_toggled"]
@@ -472,4 +567,6 @@ margin_right = 340.0
 [connection signal="confirm_robot_request" from="Windows/WindowRobotRequest" to="." method="_on_WindowRobotRequest_confirm_robot_request"]
 [connection signal="pressed" from="Windows/WindowRobotRequest/MarginContainer/VBoxContainer/HBoxContainer/CenterContainer/ButtonConfirm" to="Windows/WindowRobotRequest" method="_on_ButtonConfirm_pressed"]
 [connection signal="pressed" from="Windows/WindowRobotRequest/MarginContainer/VBoxContainer/HBoxContainer/CenterContainer2/ButtonCancel" to="Windows/WindowRobotRequest" method="_on_ButtonCancel_pressed"]
-[connection signal="pressed" from="ControlMain/MarginContainer/HBoxContainer/VBoxContainer/ButtonSettings" to="." method="_on_ButtonSettings_pressed"]
+[connection signal="close" from="Windows/WindowIntro" to="." method="_on_WindowIntro_close"]
+[connection signal="inactivated" from="Windows/WindowIntro" to="." method="_on_WindowIntro_inactivated"]
+[connection signal="pressed" from="Windows/WindowIntro/MarginContainer/VBoxContainer/CenterContainer/ButtonClose" to="Windows/WindowIntro" method="_on_ButtonClose_pressed"]

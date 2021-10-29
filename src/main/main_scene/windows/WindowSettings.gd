@@ -3,6 +3,7 @@ extends BasicInterface
 signal setting_connect
 signal setting_window_robot_event
 signal setting_window_robot_request
+signal setting_window_intro
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -32,5 +33,11 @@ func _on_ButtonWindowRobotEvent_pressed():
 
 func _on_ButtonWindowRobotRequest_pressed():
 	emit_signal("setting_window_robot_request")
+	inactivate()
+	pass # Replace with function body.
+
+
+func _on_ButtonWindowIntro_pressed():
+	emit_signal("setting_window_intro")
 	inactivate()
 	pass # Replace with function body.

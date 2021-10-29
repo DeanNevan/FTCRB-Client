@@ -7,12 +7,18 @@ onready var _WindowSettings = $Windows/WindowSettings
 onready var _WindowConnect = $Windows/WindowConnect
 onready var _WindowRobotEvent = $Windows/WindowRobotEvent
 onready var _WindowRobotRequest = $Windows/WindowRobotRequest
+onready var _WindowIntro = $Windows/WindowIntro
 
 onready var _ScrollOpModeLogsContainer = $ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/ScrollOpModeLogsContainer
 onready var _OpModeLogsContainer = $ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/ScrollOpModeLogsContainer/OpModeLogsContainer
 onready var _OpModeTabsContainer = $ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer/OpModeTabsContainer
 
 onready var _HeadLabelOpModeName = $ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/HeadLabelOpModeName
+
+onready var _LabelInfoOpModeLogs = $ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/LabelInfoOpModeLogs
+onready var _LabelInfoOpModeTabs = $ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/LabelInfoOpModeTabs
+
+
 
 onready var loader_cover : LoaderCover = GUI.new_loader_cover()
 
@@ -23,8 +29,14 @@ var Scene_EachOpModeTab = preload("res://src/main/main_scene/EachOpModeTab/EachO
 
 var current_show_logs_op_mode_name := ""
 
+var tween_fade := Tween.new()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_child(tween_fade)
+	
+	_WindowIntro.activate()
+	
 	ServerConnection.connect("connected", self, "_on_ServerConnection_connected")
 	HeartBeatManager.connect("timeout", self, "_on_HeartBeatManager_timeout")
 	ServerConnection.connect("responsed", self, "_on_ServerConnection_responsed")
@@ -52,7 +64,7 @@ func update_ui():
 		i.queue_free()
 	for i in _OpModeTabsContainer.get_children():
 		i.queue_free()
-	_HeadLabelOpModeName.text = ""
+	_HeadLabelOpModeName.text = "显示中的OpMode的名字"
 	for i in Data.op_mode_logs:
 		var op_mode_name : String = i
 		
@@ -66,6 +78,9 @@ func update_ui():
 func update_logs(op_mode_name : String = current_show_logs_op_mode_name):
 	for i in _OpModeLogsContainer.get_children():
 		i.queue_free()
+	if op_mode_name == "" or Data.op_mode_logs.get(op_mode_name) == null:
+		_HeadLabelOpModeName.text = "显示中的OpMode的名字"
+		return
 	_HeadLabelOpModeName.text = op_mode_name
 	if op_mode_name == "" or Data.op_mode_logs.get(op_mode_name) == null:
 		return
@@ -198,4 +213,68 @@ func _on_EachOpModeTab_delete(op_mode_name : String):
 
 func _on_ButtonLogsAutoBottom_toggled(button_pressed : bool):
 	logs_auto_bottom = button_pressed
+	pass # Replace with function body.
+
+
+func _on_WindowSettings_setting_window_intro():
+	_WindowIntro.activate()
+	tween_fade.interpolate_property(
+		_LabelInfoOpModeLogs, 
+		"modulate", 
+		_LabelInfoOpModeLogs.modulate, 
+		Color(
+			_LabelInfoOpModeLogs.modulate.r,
+			_LabelInfoOpModeLogs.modulate.g,
+			_LabelInfoOpModeLogs.modulate.b,
+			1
+		),
+		0.5
+	)
+	tween_fade.interpolate_property(
+		_LabelInfoOpModeTabs, 
+		"modulate", 
+		_LabelInfoOpModeTabs.modulate, 
+		Color(
+			_LabelInfoOpModeTabs.modulate.r,
+			_LabelInfoOpModeTabs.modulate.g,
+			_LabelInfoOpModeTabs.modulate.b,
+			1
+		),
+		0.5
+	)
+	tween_fade.start()
+	pass # Replace with function body.
+
+
+func _on_WindowIntro_close():
+	_WindowIntro.inactivate()
+	pass # Replace with function body.
+
+
+func _on_WindowIntro_inactivated():
+	tween_fade.interpolate_property(
+		_LabelInfoOpModeLogs, 
+		"modulate", 
+		_LabelInfoOpModeLogs.modulate, 
+		Color(
+			_LabelInfoOpModeLogs.modulate.r,
+			_LabelInfoOpModeLogs.modulate.g,
+			_LabelInfoOpModeLogs.modulate.b,
+			0
+		),
+		0.5
+	)
+	tween_fade.interpolate_property(
+		_LabelInfoOpModeTabs, 
+		"modulate", 
+		_LabelInfoOpModeTabs.modulate, 
+		Color(
+			_LabelInfoOpModeTabs.modulate.r,
+			_LabelInfoOpModeTabs.modulate.g,
+			_LabelInfoOpModeTabs.modulate.b,
+			0
+		),
+		0.5
+	)
+	tween_fade.start()
 	pass # Replace with function body.
