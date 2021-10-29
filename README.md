@@ -9,6 +9,9 @@
 包含连接RBServer、接收RobotEvent（重启机器人等）、接收OpModeLog、发送RobotRequest等功能
 
 若要直接使用，请下载release版本
+Godot项目界面
+
+![Godot项目界面](samples/intro0.png)
 
 总体说明
 
