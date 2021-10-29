@@ -568,5 +568,5 @@ text = "关闭"
 [connection signal="pressed" from="Windows/WindowRobotRequest/MarginContainer/VBoxContainer/HBoxContainer/CenterContainer/ButtonConfirm" to="Windows/WindowRobotRequest" method="_on_ButtonConfirm_pressed"]
 [connection signal="pressed" from="Windows/WindowRobotRequest/MarginContainer/VBoxContainer/HBoxContainer/CenterContainer2/ButtonCancel" to="Windows/WindowRobotRequest" method="_on_ButtonCancel_pressed"]
 [connection signal="close" from="Windows/WindowIntro" to="." method="_on_WindowIntro_close"]
-[connection signal="inactivated" from="Windows/WindowIntro" to="." method="_on_WindowIntro_inactivated"]
+[connection signal="visibility_changed" from="Windows/WindowIntro" to="." method="_on_WindowIntro_visibility_changed"]
 [connection signal="pressed" from="Windows/WindowIntro/MarginContainer/VBoxContainer/CenterContainer/ButtonClose" to="Windows/WindowIntro" method="_on_ButtonClose_pressed"]

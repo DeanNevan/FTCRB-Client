@@ -59,6 +59,33 @@ func _ready():
 #func _process(delta):
 #	pass
 
+func new_op_mode_tab(op_mode_name : String):
+	var each_op_mode_tab = Scene_EachOpModeTab.instance()
+	_OpModeTabsContainer.add_child(each_op_mode_tab)
+	each_op_mode_tab.activate(op_mode_name)
+	each_op_mode_tab.connect("select", self, "_on_EachOpModeTab_select")
+	each_op_mode_tab.connect("delete", self, "_on_EachOpModeTab_delete")
+	pass
+
+func new_op_mode_log(id : int, content : String, timestamp : int, is_updating := false):
+	var each_op_mode_log = Scene_EachOpModeLog.instance()
+	_OpModeLogsContainer.add_child(each_op_mode_log)
+	var time_dic : Dictionary = OS.get_datetime_from_unix_time(timestamp)
+	each_op_mode_log.activate(
+		id,
+		content,
+		"%d:%d:%d" % [
+			time_dic.hour + 8,
+			time_dic.minute,
+			time_dic.second,
+		]
+	)
+	if !is_updating:
+		yield(get_tree(), "idle_frame")
+		if logs_auto_bottom:
+			_ScrollOpModeLogsContainer.get_v_scrollbar().ratio = 1
+	pass
+
 func update_ui():
 	for i in _OpModeLogsContainer.get_children():
 		i.queue_free()
@@ -67,12 +94,7 @@ func update_ui():
 	_HeadLabelOpModeName.text = "显示中的OpMode的名字"
 	for i in Data.op_mode_logs:
 		var op_mode_name : String = i
-		
-		var each_op_mode_tab = Scene_EachOpModeTab.instance()
-		_OpModeTabsContainer.add_child(each_op_mode_tab)
-		each_op_mode_tab.activate(op_mode_name)
-		each_op_mode_tab.connect("select", self, "_on_EachOpModeTab_select")
-		each_op_mode_tab.connect("delete", self, "_on_EachOpModeTab_delete")
+		new_op_mode_tab(op_mode_name)
 	pass
 
 func update_logs(op_mode_name : String = current_show_logs_op_mode_name):
@@ -85,22 +107,9 @@ func update_logs(op_mode_name : String = current_show_logs_op_mode_name):
 	if op_mode_name == "" or Data.op_mode_logs.get(op_mode_name) == null:
 		return
 	for id in Data.op_mode_logs[op_mode_name]:
-		var each_op_mode_log = Scene_EachOpModeLog.instance()
-		_OpModeLogsContainer.add_child(each_op_mode_log)
-		
 		var content : String = Data.op_mode_logs[op_mode_name][id]["content"]
 		var timestamp : int = Data.op_mode_logs[op_mode_name][id]["timestamp"]
-		var time_dic : Dictionary = OS.get_datetime_from_unix_time(timestamp)
-		
-		each_op_mode_log.activate(
-			id,
-			content,
-			"%d:%d:%d" % [
-				time_dic.hour + 8,
-				time_dic.minute,
-				time_dic.second,
-			]
-		)
+		new_op_mode_log(id, content, timestamp, true)
 	yield(get_tree(), "idle_frame")
 	if logs_auto_bottom:
 		_ScrollOpModeLogsContainer.get_v_scrollbar().ratio = 1
@@ -114,13 +123,19 @@ func _on_ServerConnection_responsed(response : RBMessage.Response):
 				GUI.popup_confirmation(response_robot_request.get_words(), "机器人请求错误...")
 		RBMessage.Type.ROBOT_OPMODE_LOG:
 			var robot_opmode_log : RBMessage.RobotOpmodeLog = response.get_robotOpmodeLog()
-			Data.add_op_mode_log(
+			var id : int = Data.add_op_mode_log(
 				robot_opmode_log.get_opmode_name(),
 				robot_opmode_log.get_content(),
 				response.get_timestamp()
 			)
-			update_ui()
-			update_logs()
+			if id == 0:
+				new_op_mode_tab(robot_opmode_log.get_opmode_name())
+			if current_show_logs_op_mode_name == robot_opmode_log.get_opmode_name():
+				new_op_mode_log(
+					id,
+					robot_opmode_log.get_content(),
+					response.get_timestamp()
+				)
 		RBMessage.Type.ROBOT_EVENT:
 			var robot_event : RBMessage.RobotEvent = response.get_robotEvent()
 			var event_type = robot_event.get_robot_event_type()
@@ -218,31 +233,6 @@ func _on_ButtonLogsAutoBottom_toggled(button_pressed : bool):
 
 func _on_WindowSettings_setting_window_intro():
 	_WindowIntro.activate()
-	tween_fade.interpolate_property(
-		_LabelInfoOpModeLogs, 
-		"modulate", 
-		_LabelInfoOpModeLogs.modulate, 
-		Color(
-			_LabelInfoOpModeLogs.modulate.r,
-			_LabelInfoOpModeLogs.modulate.g,
-			_LabelInfoOpModeLogs.modulate.b,
-			1
-		),
-		0.5
-	)
-	tween_fade.interpolate_property(
-		_LabelInfoOpModeTabs, 
-		"modulate", 
-		_LabelInfoOpModeTabs.modulate, 
-		Color(
-			_LabelInfoOpModeTabs.modulate.r,
-			_LabelInfoOpModeTabs.modulate.g,
-			_LabelInfoOpModeTabs.modulate.b,
-			1
-		),
-		0.5
-	)
-	tween_fade.start()
 	pass # Replace with function body.
 
 
@@ -251,7 +241,10 @@ func _on_WindowIntro_close():
 	pass # Replace with function body.
 
 
-func _on_WindowIntro_inactivated():
+func _on_WindowIntro_visibility_changed():
+	if !is_instance_valid(_WindowIntro):
+		return
+	var v = _WindowIntro.visible
 	tween_fade.interpolate_property(
 		_LabelInfoOpModeLogs, 
 		"modulate", 
@@ -260,7 +253,7 @@ func _on_WindowIntro_inactivated():
 			_LabelInfoOpModeLogs.modulate.r,
 			_LabelInfoOpModeLogs.modulate.g,
 			_LabelInfoOpModeLogs.modulate.b,
-			0
+			1 if v else 0
 		),
 		0.5
 	)
@@ -272,7 +265,7 @@ func _on_WindowIntro_inactivated():
 			_LabelInfoOpModeTabs.modulate.r,
 			_LabelInfoOpModeTabs.modulate.g,
 			_LabelInfoOpModeTabs.modulate.b,
-			0
+			1 if v else 0
 		),
 		0.5
 	)

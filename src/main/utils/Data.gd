@@ -14,7 +14,7 @@ func add_robot_event_string(string : String):
 	robot_event_content.append(string)
 	emit_signal("robot_event_content_changed")
 
-func add_op_mode_log(op_mode_name : String, log_string := "", timestamp : int = 0):
+func add_op_mode_log(op_mode_name : String, log_string := "", timestamp : int = 0) -> int:
 	if op_mode_logs.get(op_mode_name) == null:
 		op_mode_logs_id_pool[op_mode_name] = 0
 		op_mode_logs[op_mode_name] = {
@@ -25,6 +25,7 @@ func add_op_mode_log(op_mode_name : String, log_string := "", timestamp : int = 
 		"timestamp" : timestamp
 	}
 	op_mode_logs_id_pool[op_mode_name] += 1
+	return id
 
 func remove_op_mode_log(op_mode_name : String):
 	if op_mode_logs.has(op_mode_name):
