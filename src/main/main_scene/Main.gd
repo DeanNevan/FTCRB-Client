@@ -18,7 +18,7 @@ onready var _HeadLabelOpModeName = $ControlMain/MarginContainer/HBoxContainer/VB
 onready var _LabelInfoOpModeLogs = $ControlMain/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/LabelInfoOpModeLogs
 onready var _LabelInfoOpModeTabs = $ControlMain/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/LabelInfoOpModeTabs
 
-
+var heart_beat_timeout
 
 onready var loader_cover : LoaderCover = GUI.new_loader_cover()
 
@@ -160,7 +160,7 @@ func _on_ServerConnection_responsed(response : RBMessage.Response):
 
 
 func _on_HeartBeatManager_timeout():
-	GUI.popup_confirmation("心跳超时...")
+	GUI.popup_confirmation("心跳超时...\n点击屏幕其它位置关闭窗口")
 	pass
 
 func _on_ServerConnection_connected():

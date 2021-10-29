@@ -24,6 +24,7 @@ margin_right = 950.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 0, 100 )
 size_flags_horizontal = 3
+readonly = true
 
 [node name="LabelTime" type="Label" parent="."]
 margin_left = 966.0

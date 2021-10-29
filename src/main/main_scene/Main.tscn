@@ -210,6 +210,7 @@ __meta__ = {
 }
 
 [node name="WindowSettings" type="WindowDialog" parent="Windows"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -234,20 +235,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Windows/WindowSettings/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Windows/WindowSettings/MarginContainer"]
 margin_left = 24.0
 margin_top = 24.0
 margin_right = 443.0
 margin_bottom = 757.0
 
-[node name="ButtonConnect" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Windows/WindowSettings/MarginContainer/VBoxContainer2"]
+margin_right = 419.0
+margin_bottom = 647.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer"]
+margin_right = 419.0
+margin_bottom = 647.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ButtonConnect" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
 margin_right = 419.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 60 )
 text = "连接"
 icon = ExtResource( 4 )
 
-[node name="ButtonWindowIntro" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+[node name="ButtonWindowIntro" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
 margin_top = 76.0
 margin_right = 419.0
 margin_bottom = 136.0
@@ -255,7 +268,7 @@ rect_min_size = Vector2( 0, 60 )
 text = "窗口：说明"
 icon = ExtResource( 17 )
 
-[node name="ButtonWindowRobotEvent" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+[node name="ButtonWindowRobotEvent" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
 margin_top = 152.0
 margin_right = 419.0
 margin_bottom = 212.0
@@ -263,7 +276,7 @@ rect_min_size = Vector2( 0, 60 )
 text = "窗口：机器人事件"
 icon = ExtResource( 16 )
 
-[node name="ButtonWindowRobotRequest" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+[node name="ButtonWindowRobotRequest" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
 margin_top = 228.0
 margin_right = 419.0
 margin_bottom = 288.0
@@ -271,13 +284,30 @@ rect_min_size = Vector2( 0, 60 )
 text = "窗口：发送请求"
 icon = ExtResource( 10 )
 
-[node name="ButtonLogsAutoBottom" type="CheckBox" parent="Windows/WindowSettings/MarginContainer/VBoxContainer"]
+[node name="ButtonLogsAutoBottom" type="CheckBox" parent="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
 margin_top = 304.0
 margin_right = 419.0
 margin_bottom = 364.0
 rect_min_size = Vector2( 0, 60 )
 text = "日志自动滚动底部"
 align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Windows/WindowSettings/MarginContainer/VBoxContainer2"]
+margin_top = 663.0
+margin_right = 419.0
+margin_bottom = 667.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Windows/WindowSettings/MarginContainer/VBoxContainer2"]
+margin_top = 683.0
+margin_right = 419.0
+margin_bottom = 733.0
+
+[node name="ButtonClose" type="Button" parent="Windows/WindowSettings/MarginContainer/VBoxContainer2/CenterContainer"]
+margin_left = 109.0
+margin_right = 309.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
+text = "关闭"
 
 [node name="WindowConnect" type="WindowDialog" parent="Windows"]
 anchor_left = 0.5
@@ -488,7 +518,6 @@ rect_min_size = Vector2( 100, 40 )
 text = "取消"
 
 [node name="WindowIntro" type="WindowDialog" parent="Windows"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -556,11 +585,12 @@ text = "关闭"
 [connection signal="setting_window_intro" from="Windows/WindowSettings" to="." method="_on_WindowSettings_setting_window_intro"]
 [connection signal="setting_window_robot_event" from="Windows/WindowSettings" to="." method="_on_WindowSettings_setting_window_robot_event"]
 [connection signal="setting_window_robot_request" from="Windows/WindowSettings" to="." method="_on_WindowSettings_setting_window_robot_request"]
-[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonConnect" to="Windows/WindowSettings" method="_on_ButtonConnect_pressed"]
-[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonWindowIntro" to="Windows/WindowSettings" method="_on_ButtonWindowIntro_pressed"]
-[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonWindowRobotEvent" to="Windows/WindowSettings" method="_on_ButtonWindowRobotEvent_pressed"]
-[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonWindowRobotRequest" to="Windows/WindowSettings" method="_on_ButtonWindowRobotRequest_pressed"]
-[connection signal="toggled" from="Windows/WindowSettings/MarginContainer/VBoxContainer/ButtonLogsAutoBottom" to="." method="_on_ButtonLogsAutoBottom_toggled"]
+[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer/ButtonConnect" to="Windows/WindowSettings" method="_on_ButtonConnect_pressed"]
+[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer/ButtonWindowIntro" to="Windows/WindowSettings" method="_on_ButtonWindowIntro_pressed"]
+[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer/ButtonWindowRobotEvent" to="Windows/WindowSettings" method="_on_ButtonWindowRobotEvent_pressed"]
+[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer/ButtonWindowRobotRequest" to="Windows/WindowSettings" method="_on_ButtonWindowRobotRequest_pressed"]
+[connection signal="toggled" from="Windows/WindowSettings/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer/ButtonLogsAutoBottom" to="." method="_on_ButtonLogsAutoBottom_toggled"]
+[connection signal="pressed" from="Windows/WindowSettings/MarginContainer/VBoxContainer2/CenterContainer/ButtonClose" to="Windows/WindowSettings" method="_on_ButtonClose_pressed"]
 [connection signal="confirm_connect" from="Windows/WindowConnect" to="." method="_on_WindowConnect_confirm_connect"]
 [connection signal="pressed" from="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer3/CenterContainer/ButtonConfirm" to="Windows/WindowConnect" method="_on_ButtonConfirm_pressed"]
 [connection signal="pressed" from="Windows/WindowConnect/MarginContainer/VBoxContainer/HBoxContainer3/CenterContainer2/ButtonCancel" to="Windows/WindowConnect" method="_on_ButtonCancel_pressed"]

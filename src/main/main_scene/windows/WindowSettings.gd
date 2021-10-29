@@ -41,3 +41,8 @@ func _on_ButtonWindowIntro_pressed():
 	emit_signal("setting_window_intro")
 	inactivate()
 	pass # Replace with function body.
+
+
+func _on_ButtonClose_pressed():
+	inactivate()
+	pass # Replace with function body.
