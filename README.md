@@ -10,6 +10,10 @@
 
 若要直接使用，请下载release版本
 
+Godot项目界面
+
+![Godot项目界面](samples/intro0.png)
+
 总体说明
 
 ![总体说明](samples/intro1.png)
